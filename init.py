@@ -18,19 +18,20 @@ if exists("accelerator/daemon.py"):
 
 versions = []
 for v in (2, 3):
-	path = join(abspath("venv"), "py%d" % (v,))
+	path = abspath("requirements")
 	python = "python%d" % (v,)
-	check_call(["virtualenv", "-p", python, path])
-	check_call([join(path, "bin/pip"), "install", "-r", "venv/requirements.py%d.txt" % (v,)])
+	pip = "pip%d" % (v,)
+	src_dir = "%s/.local/src" % getenv("HOME")
+	check_call([pip, "install", "--src", src_dir, "--user", "-r",  join(path,"requirements.py%d.txt" % (v,))])
 	print()
 	print("Running gzutil tests")
-	check_call([join(path, "bin/python"), join(path, "src/gzutil/test.py")])
+	check_call([python, join(src_dir, "gzutil/test.py")])
 	try:
 		unlink("_tmp_test.gz")
 	except OSError:
 		pass
 	print()
-	versions.append("py%d=%s/bin/python\n" % (v, path,))
+	versions.append("py%d=/usr/bin/python%d\n" % (v, v,))
 
 accel_home = join(getenv("HOME"), "accelerator")
 for dn in ("conf", join(accel_home, "results"), join(accel_home, "workdirs/TEST"),):
