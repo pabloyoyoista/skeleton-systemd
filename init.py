@@ -33,15 +33,18 @@ for v in (2, 3):
 	print()
 	versions.append("py%d=/usr/bin/python%d\n" % (v, v,))
 
-accel_home = join(getenv("HOME"), "accelerator")
-for dn in ("conf", join(accel_home, "results"), join(accel_home, "workdirs/TEST"),):
+accel_home = "/srv/accelerator"
+for dn in ("conf",
+           join(accel_home, "results"),
+           join(accel_home, "workdirs/TEST"),
+           join(accel_home, "raw_data")):
 	makedirs(dn, exist_ok=True)
 
 CONF="""# var=value, value can have ${VAR=DEFAULT} to import env vars.
 
 # workdir=NAME:PATH:SLICES
 # You can have as many workdir lines as you want
-workdir=TEST:${HOME}/accelerator/workdirs/TEST:%d
+workdir=TEST:/srv/accelerator/workdirs/TEST:%d
 
 # You can only have one target workdir.
 # All built jobs end up there.
@@ -54,14 +57,15 @@ source_workdirs=TEST
 method_directories=dev,standard_methods,example1,example_perf
 
 # automata scripts save things here
-result_directory=${HOME}/accelerator/results
+result_directory=/srv/accelerator/results
 
 # import methods look under here
-source_directory=/some/other/path
+source_directory=/srv/accelerator/raw_data
 
-logfilename=${HOME}/accelerator/daemon.log
+logfilename=/srv/accelerator/daemon.log
 hash_override=<hash_check_override>
 
+urd=http://localhost:8080
 # python versions to use
 # (the left side here is what you put on the right side in methods.conf)
 """
