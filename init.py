@@ -76,7 +76,7 @@ with open("conf/framework.conf", "w", encoding="utf-8") as fh:
 	fh.write("".join(versions))
 
 check_call(["git", "submodule", "init"])
-check_call(["git", "submodule", "update"])
+check_call(["git", "submodule", "update", "--init", "--recursive"])
 
 print("""
 All done!
