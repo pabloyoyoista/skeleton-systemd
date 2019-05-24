@@ -1,0 +1,7 @@
+Cmnd_Alias ACC = \
+ /bin/systemctl start accelerator.service, \
+ /bin/systemctl restart accelerator.service, \
+ /bin/systemctl status accelerator.service, \
+ /bin/systemctl stop accelerator.service
+
+%accelerator ALL=NOPASSWD: ACC

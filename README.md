@@ -31,24 +31,14 @@ but is in no way limited to these systems or versions.
 
 
 
-Installation
-============
+System Installation
+===================
 
-1. Clone the https://github.com/eBay/accelerator-project_skeleton repository.
-2. Install dependencies.  On Debian and Ubuntu
-
-    ```sudo apt-get install build-essential python-dev python3-dev zlib1g-dev git virtualenv```
-
-3. Run the setup script
-    ```
-    cd accelerator-project_skeleton
-    ./init.py
-    ```
-    Please read and modify this script according to your needs.
-4. Done.  The Accelerator is now ready for use.
-
-The init.py script will clone both the accelerator-gzutil and the main accelerator repositories.  The gzutil library will be set up in virtual environments for Python2 as well as Python3, and the Accelerator will be set up as a git submodule to the project_skeleton repository.
-
+1. Decide a folder where the accelerator should be placed (default: /srv/accelerator/skeleton). This folder will be referenced as $ACC_DIR.
+2. Clone the https://github.com/eBay/accelerator-project_skeleton repository to $ACC_DIR.
+3. In case of installing with a different default directory, replace all occurrencies of /srv/accelerator in install.sh, urd.service, accelerator.service, daemon.sh and init.py.
+4. Run installation script. Make sure that you have superuser priviledges and sudo installed. It will install and enable all services. That means that the accelerator will be started at boot.
+5. Done.  The Accelerator is now ready for use. You can run automatarunner without caring about the daemon, as it should have already been installed. To manage the daemon, and see available options run `daemon --help`.
 
 
 License

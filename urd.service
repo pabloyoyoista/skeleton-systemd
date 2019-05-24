@@ -1,0 +1,16 @@
+[Unit]
+Description=Urd server
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=no
+WorkingDirectory=/srv/accelerator/skeleton/accelerator
+User=admin
+Group=accelerator
+ExecStart=/usr/bin/python2 urd/urd.py --path urd/db --port 8080
+
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,16 @@
+[Unit]
+Description=Accelerator daemon in %I
+After=urd.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=no
+WorkingDirectory=/srv/accelerator/skeleton/accelerator
+User=admin
+Group=accelerator
+ExecStart=/bin/bash -c "python3 daemon.py --config ../conf/framework.conf \
+--socket socket.dir/default &>> ../../daemon.log"
+
+[Install]
+WantedBy=multi-user.target
